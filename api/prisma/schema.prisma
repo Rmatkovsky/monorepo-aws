@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Todo {
+  id          String      @id @default(cuid())
+  title       String      @db.VarChar(255)
+  description String?     @db.Text
+  completed   Boolean     @default(false)
+  imageUrl    String?     @db.VarChar(1024)
+  imageKey    String?     @db.VarChar(512)
+  imageStatus ImageStatus @default(NONE)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("todos")
+}
+
+enum ImageStatus {
+  NONE
+  PENDING
+  PROCESSED
+  FAILED
+}
