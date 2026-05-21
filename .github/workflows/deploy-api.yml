@@ -26,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build API
-        run: npm run build -w api
-
       - name: Generate Prisma client
         run: npx prisma generate --schema=api/prisma/schema.prisma
+
+      - name: Build API
+        run: npm run build -w api
 
       - name: Create deployment package
         run: |
