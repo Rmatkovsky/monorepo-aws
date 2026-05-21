@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(aws configure *)",
+      "Bash(aws s3 *)",
+      "Bash(aws sqs *)",
+      "Bash(aws rds *)",
+      "Bash(aws ec2 *)",
+      "Bash(xargs cat)"
+    ]
+  }
+}

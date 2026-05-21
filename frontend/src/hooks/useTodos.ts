@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { todosApi } from '../api/todos';
 import type { CreateTodoInput, UpdateTodoInput } from '../types';
@@ -5,6 +6,14 @@ import type { CreateTodoInput, UpdateTodoInput } from '../types';
 const KEY = ['todos'] as const;
 
 export function useTodos() {
+  const qc = useQueryClient();
+
+  useEffect(() => {
+    const es = new EventSource('/api/events');
+    es.onmessage = () => qc.invalidateQueries({ queryKey: KEY });
+    return () => es.close();
+  }, [qc]);
+
   return useQuery({ queryKey: KEY, queryFn: todosApi.list });
 }
 
